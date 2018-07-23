@@ -42,7 +42,6 @@ public class UserLibApplicationTests {
 		managedUser.setLastName("Yusuf");
 		managedUser.setPhoneNumber("00000000000000");
 		managedUser.setUserCategory(UserCategory.ADMIN);
-		managedUser.setUserName("zeedoli2");
 		ManagedUserModelApi managedUserModelApi = userDetailsRequest.addManagedUser(managedUser);
 		return;
 	}

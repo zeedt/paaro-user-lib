@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ManagedUserRepository extends JpaRepository<ManagedUser,Long> {
 
-    ManagedUser findOneByUserNameAndPassword(String username, String password);
+    ManagedUser findOneByEmailAndPassword(String email, String password);
 
-    ManagedUser findOneByUserName(String username);
+    ManagedUser findOneByEmail(String email);
 
 }

@@ -31,7 +31,7 @@ public class UserDetailsTokenEnvelope implements UserDetails{
 
     @Override
     public String getUsername() {
-        return null;
+        return managedUser.getEmail();
     }
 
     @Override

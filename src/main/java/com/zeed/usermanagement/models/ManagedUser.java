@@ -3,10 +3,10 @@ package com.zeed.usermanagement.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
-@Table(name = "managed_user")
+@Table(name = "user")
 public class ManagedUser implements Serializable {
 
     @Id
@@ -20,10 +20,6 @@ public class ManagedUser implements Serializable {
     @NotNull
     @Column(name = "last_name")
     private String lastName;
-
-    @NotNull
-    @Column(name = "user_name")
-    private String userName;
 
     @NotNull
     @Column(name = "password")
@@ -42,6 +38,10 @@ public class ManagedUser implements Serializable {
     @NotNull
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column
+    @NotNull
+    private boolean active = false;
 
 
     @NotNull
@@ -70,14 +70,6 @@ public class ManagedUser implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public UserCategory getUserCategory() {
@@ -120,4 +112,11 @@ public class ManagedUser implements Serializable {
         this.password = password;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

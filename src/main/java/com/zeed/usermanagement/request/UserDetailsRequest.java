@@ -5,6 +5,10 @@ import com.zeed.generic.RestApiClient;
 import com.zeed.usermanagement.apimodels.ManagedUserModelApi;
 import com.zeed.usermanagement.enums.ResponseStatus;
 import com.zeed.usermanagement.models.ManagedUser;
+import com.zeed.usermanagement.requestmodels.PasswordResetRequestModel;
+import com.zeed.usermanagement.requestmodels.UserUpdateRequestModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,8 @@ public class UserDetailsRequest {
     @Value("${user.service.url:http://localhost:8011}")
     private String url;
 
+    private Logger logger = LoggerFactory.getLogger(UserDetailsRequest.class);
+
     public ManagedUserModelApi getManagedUserDetails(String username) throws Exception {
 
         try {
@@ -30,7 +36,7 @@ public class UserDetailsRequest {
 
             return managedUserModelApi;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error occured while fetching user details due to ", e);
             return new ManagedUserModelApi(null,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
         }
     }
@@ -44,7 +50,7 @@ public class UserDetailsRequest {
 
             return userModelApi;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error occured while fetching user details with entity due to ", e);
             return new ManagedUserModelApi(new ManagedUser(),null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
         }
     }
@@ -57,10 +63,60 @@ public class UserDetailsRequest {
             ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/createUser",ManagedUserModelApi.class,managedUser,headers);
             return managedUserModelApi;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error occured while adding user due to ", e);
             return new ManagedUserModelApi(managedUser,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
         }
 
+    }
+
+    public ManagedUserModelApi deactivateUser(String emial) {
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi userModelApi = restApiClient.apiGetAndGetClass(url+"/user/deactivateUser?email="+emial,ManagedUserModelApi.class,
+                    null,headers);
+
+            return userModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while deactivating user due to ", e);
+            return new ManagedUserModelApi(new ManagedUser(),null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
+        }
+    }
+    public ManagedUserModelApi activateUser(String emial) {
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi userModelApi = restApiClient.apiGetAndGetClass(url+"/user/activateUser?email="+emial,ManagedUserModelApi.class,
+                    null,headers);
+
+            return userModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while activating user due to ", e);
+            return new ManagedUserModelApi(new ManagedUser(),null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
+        }
+    }
+    public ManagedUserModelApi resetUserPassword(PasswordResetRequestModel resetRequestModel) {
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/reset_user_password",ManagedUserModelApi.class,resetRequestModel,headers);
+            return managedUserModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while resetting user password due to ", e);
+            return new ManagedUserModelApi(null,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
+        }
+    }
+
+    public ManagedUserModelApi updateUserDetails(UserUpdateRequestModel resetRequestModel) {
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/updateUser",ManagedUserModelApi.class,resetRequestModel,headers);
+            return managedUserModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while resetting user password due to ", e);
+            return new ManagedUserModelApi(null,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured due to " + e.getCause().toString()));
+        }
     }
 
 }
