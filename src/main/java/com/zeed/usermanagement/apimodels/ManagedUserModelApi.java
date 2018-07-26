@@ -16,11 +16,24 @@ public class ManagedUserModelApi implements Serializable {
 
     private ResponseStatus responseStatus;
 
+    private Authority authority;
+
     private String message;
 
     public ManagedUserModelApi (ManagedUser managedUser, List<Authority> authorities, ResponseStatus responseStatus) {
         this.managedUser = managedUser;
         this.authorities = authorities;
+        this.responseStatus = responseStatus;
+    }
+    public ManagedUserModelApi (ManagedUser managedUser, Authority authority, List<Authority> authorities, ResponseStatus responseStatus) {
+        this.managedUser = managedUser;
+        this.authorities = authorities;
+        this.authority = authority;
+        this.responseStatus = responseStatus;
+    }
+    public ManagedUserModelApi (ManagedUser managedUser, Authority authority, ResponseStatus responseStatus) {
+        this.managedUser = managedUser;
+        this.authority = authority;
         this.responseStatus = responseStatus;
     }
     public ManagedUserModelApi (ManagedUser managedUser, List<Authority> authorities, ResponseStatus responseStatus, String message) {
@@ -31,6 +44,11 @@ public class ManagedUserModelApi implements Serializable {
     }
 
     public ManagedUserModelApi() {
+    }
+
+    public ManagedUserModelApi(ResponseStatus responseStatus, String message) {
+        this.responseStatus = responseStatus;
+        this.message = message;
     }
 
     public ManagedUser getManagedUser() {
@@ -63,5 +81,13 @@ public class ManagedUserModelApi implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }

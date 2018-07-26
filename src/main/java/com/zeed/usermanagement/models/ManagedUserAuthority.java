@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity (name = "managed_user_authority")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"managed_user_id", "authority_id"}))
 public class ManagedUserAuthority implements Serializable{
 
     @Id

@@ -7,5 +7,6 @@ public enum ResponseStatus {
     ALREADY_EXIST,
     SYSTEM_ERROR,
     NOT_FOUND,
-    INVALID_REQUEST
+    INVALID_REQUEST,
+    NULL_RESPONSE
 }
