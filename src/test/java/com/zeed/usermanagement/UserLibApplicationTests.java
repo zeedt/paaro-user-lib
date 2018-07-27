@@ -29,7 +29,7 @@ public class UserLibApplicationTests {
 
 	@Test
 	public void getUserInfo() throws Exception {
-		userDetailsRequest.getManagedUserDetails("superuser");
+		userDetailsRequest.getManagedUserDetailsByEmail("superuser");
 	}
 	@Test
 	public void addUser() throws Exception {

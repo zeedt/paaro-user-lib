@@ -28,11 +28,11 @@ public class UserDetailsRequest {
 
     private Logger logger = LoggerFactory.getLogger(UserDetailsRequest.class);
 
-    public ManagedUserModelApi getManagedUserDetails(String username) throws Exception {
+    public ManagedUserModelApi getManagedUserDetailsByEmail(String username) throws Exception {
 
         try {
-            ManagedUserModelApi managedUserModelApi = restApiClient.apiGetAndGetClass(url+"/user/getDetailsByUsername/"+username,ManagedUserModelApi.class,
-                    null,null);
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiGetAndGetClass(url+"/user/getDetailsByemail?email="+username,ManagedUserModelApi.class,
+                    null,null, true);
 
             return managedUserModelApi;
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class UserDetailsRequest {
 
         try {
             ManagedUserModelApi userModelApi = restApiClient.apiGetAndGetClass(url+"/user/getDetailsByUsername/"+username,ManagedUserModelApi.class,
-                    null,headers);
+                    null,headers, true);
 
             return userModelApi;
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class UserDetailsRequest {
         HashMap<String,String> headers = new HashMap<>();
 
         try {
-            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/createUser",ManagedUserModelApi.class,managedUser,headers);
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/createUser",ManagedUserModelApi.class,managedUser,headers, false);
             return managedUserModelApi;
         } catch (Exception e) {
             logger.error("Error occured while adding user due to ", e);
@@ -74,7 +74,7 @@ public class UserDetailsRequest {
 
         try {
             ManagedUserModelApi userModelApi = restApiClient.apiGetAndGetClass(url+"/user/deactivateUser?email="+emial,ManagedUserModelApi.class,
-                    null,headers);
+                    null,headers, true);
 
             return userModelApi;
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class UserDetailsRequest {
 
         try {
             ManagedUserModelApi userModelApi = restApiClient.apiGetAndGetClass(url+"/user/activateUser?email="+emial,ManagedUserModelApi.class,
-                    null,headers);
+                    null,headers, true);
 
             return userModelApi;
         } catch (Exception e) {
@@ -99,7 +99,7 @@ public class UserDetailsRequest {
         HashMap<String,String> headers = new HashMap<>();
 
         try {
-            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/reset_user_password",ManagedUserModelApi.class,resetRequestModel,headers);
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/reset_user_password",ManagedUserModelApi.class,resetRequestModel,headers, true);
             return managedUserModelApi;
         } catch (Exception e) {
             logger.error("Error occured while resetting user password due to ", e);
@@ -111,7 +111,7 @@ public class UserDetailsRequest {
         HashMap<String,String> headers = new HashMap<>();
 
         try {
-            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/updateUser",ManagedUserModelApi.class,resetRequestModel,headers);
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/updateUser",ManagedUserModelApi.class,resetRequestModel,headers, true);
             return managedUserModelApi;
         } catch (Exception e) {
             logger.error("Error occured while resetting user password due to ", e);
