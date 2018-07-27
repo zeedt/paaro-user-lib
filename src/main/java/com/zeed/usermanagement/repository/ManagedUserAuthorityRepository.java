@@ -13,4 +13,6 @@ public interface ManagedUserAuthorityRepository extends JpaRepository<ManagedUse
 
     List<ManagedUserAuthority> findAllByManagedUserIdIn(List<Long> id);
 
+    List<ManagedUserAuthority> findAllByManagedUserIdAndAuthorityId(Long managedUserId, Long authorityId);
+
 }
