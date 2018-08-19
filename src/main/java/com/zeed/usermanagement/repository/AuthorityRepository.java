@@ -18,4 +18,6 @@ public interface AuthorityRepository extends PagingAndSortingRepository<Authorit
 
     List<Authority> findAuthoritiesByAuthorityIn(Set<String> authority);
 
+    List<Authority> findAllByAuthorityIsNotNull();
+
 }
