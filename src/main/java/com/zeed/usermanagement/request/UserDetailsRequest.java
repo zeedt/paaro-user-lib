@@ -117,4 +117,17 @@ public class UserDetailsRequest {
         }
     }
 
+    public ManagedUserModelApi createAdminUser(ManagedUser managedUser){
+
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiPostAndGetClass(url+"/user/createAdminUser",ManagedUserModelApi.class,managedUser,headers, true);
+            return managedUserModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while adding admin user due to ", e);
+            return new ManagedUserModelApi(managedUser,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured while creating admin user"));
+        }
+
+    }
 }
