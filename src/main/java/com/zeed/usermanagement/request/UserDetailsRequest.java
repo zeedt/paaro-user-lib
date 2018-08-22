@@ -130,4 +130,17 @@ public class UserDetailsRequest {
         }
 
     }
+    public ManagedUserModelApi logout(){
+
+        HashMap<String,String> headers = new HashMap<>();
+
+        try {
+            ManagedUserModelApi managedUserModelApi = restApiClient.apiGetAndGetClass(url+"/user/logout",ManagedUserModelApi.class,null,headers, true);
+            return managedUserModelApi;
+        } catch (Exception e) {
+            logger.error("Error occured while logging out user due to ", e);
+            return new ManagedUserModelApi(null,null, ResponseStatus.SYSTEM_ERROR,String.format("Error occured while logging out user"));
+        }
+
+    }
 }
